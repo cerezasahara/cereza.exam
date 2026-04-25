@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class authcontroller {
 
-    // ✅ LOGIN
     public static int login(String username, String password) {
 
         try (Connection conn = DBConnection.getConnection()) {
@@ -21,17 +20,16 @@ public class authcontroller {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                return rs.getInt("id"); // return user ID
+                return rs.getInt("id"); 
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return -1; // login failed
+        return -1; 
     }
 
-    // ✅ REGISTER
     public static boolean register(String username, String password) {
 
         try (Connection conn = DBConnection.getConnection()) {
@@ -43,7 +41,7 @@ public class authcontroller {
             ResultSet rs = check.executeQuery();
 
             if (rs.next()) {
-                return false; // username already exists
+                return false; 
             }
 
             PreparedStatement ps = conn.prepareStatement(
@@ -64,7 +62,6 @@ public class authcontroller {
         return false;
     }
 
-    // ✅ GET ALL USERS (FIXED - USED IN SHARE FORM)
     public static ArrayList<String[]> getAllUsers() {
 
         ArrayList<String[]> list = new ArrayList<>();

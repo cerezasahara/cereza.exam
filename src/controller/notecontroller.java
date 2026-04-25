@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class notecontroller {
 
-    // ✅ CREATE
     public static void createNote(int ownerId, String note) {
         try (Connection conn = DBConnection.getConnection()) {
 
@@ -23,7 +22,6 @@ public class notecontroller {
         }
     }
 
-    // ✅ READ (FIXED - 6 COLUMNS)
     public static ArrayList<String[]> getNotes(int userId, String search) {
 
         ArrayList<String[]> list = new ArrayList<>();
@@ -59,17 +57,16 @@ public class notecontroller {
 
             while (rs.next()) {
 
-                // ✅ SAFE CATEGORY (NO NULL ERROR)
                 String category = rs.getString("category");
                 if (category == null) category = "None";
 
                 list.add(new String[]{
-                        rs.getString("id"),         // 0
-                        rs.getString("note"),       // 1
-                        category,                   // 2
-                        rs.getString("updated_at"), // 3
-                        rs.getString("username"),   // 4
-                        rs.getString("access")      // 5
+                        rs.getString("id"),         
+                        rs.getString("note"),       
+                        category,                   
+                        rs.getString("updated_at"), 
+                        rs.getString("username"),   
+                        rs.getString("access")      
                 });
             }
 
@@ -80,7 +77,6 @@ public class notecontroller {
         return list;
     }
 
-    // ✅ UPDATE
     public static void updateNote(int id, int userId, String note) {
         try (Connection conn = DBConnection.getConnection()) {
 
@@ -99,7 +95,6 @@ public class notecontroller {
         }
     }
 
-    // ✅ DELETE (OWNER ONLY)
     public static void deleteNote(int id, int userId) {
         try (Connection conn = DBConnection.getConnection()) {
 
@@ -124,7 +119,6 @@ public class notecontroller {
         }
     }
 
-    // ✅ SHARE
     public static void shareNote(int noteId, int ownerId, int sharedUserId, String category, String permission) {
         try (Connection conn = DBConnection.getConnection()) {
 
@@ -145,11 +139,9 @@ public class notecontroller {
         }
     }
 
-    // ✅ PERMISSION CHECK
     public static String getPermission(int noteId, int userId) {
         try (Connection conn = DBConnection.getConnection()) {
 
-            // OWNER CHECK
             PreparedStatement owner = conn.prepareStatement(
                 "SELECT owner_id FROM notepad WHERE id=?"
             );
@@ -159,7 +151,6 @@ public class notecontroller {
             if (r.next() && r.getInt("owner_id") == userId)
                 return "OWNER";
 
-            // SHARED PERMISSION
             PreparedStatement ps = conn.prepareStatement(
                 "SELECT permission FROM shared_with WHERE note_id=? AND shared_user_id=?"
             );
@@ -175,7 +166,6 @@ public class notecontroller {
         return "NONE";
     }
 
-    // ✅ CAN EDIT
     public static boolean canEdit(int noteId, int userId) {
         String p = getPermission(noteId, userId);
         return p.equals("OWNER") || p.equals("EDIT");
