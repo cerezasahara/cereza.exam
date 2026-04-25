@@ -13,7 +13,6 @@ public class UIStyle {
     public static final Font TITLE = new Font("Segoe UI", Font.BOLD, 16);
     public static final Font BODY  = new Font("Segoe UI", Font.PLAIN, 13);
 
-    // ✅ Works for JFrame + JDialog
     public static void frame(Window w){
         if(w instanceof JFrame){
             ((JFrame) w).getContentPane().setBackground(BG);
@@ -22,7 +21,6 @@ public class UIStyle {
         }
     }
 
-    // CARD PANEL
     public static JPanel card(){
         JPanel p = new JPanel();
         p.setBackground(CARD);
@@ -31,15 +29,13 @@ public class UIStyle {
         return p;
     }
 
-    // PRIMARY BUTTON (BLUE)
     public static void button(JButton b){
         b.setBackground(ACCENT);
         b.setForeground(Color.WHITE);
         b.setFocusPainted(false);
         b.setBorder(BorderFactory.createEmptyBorder(8,12,8,12));
     }
-
-    // SECONDARY BUTTON (GRAY) ✅ FIXED
+    
     public static void ghost(JButton b){
         b.setBackground(MUTED);
         b.setForeground(Color.WHITE);
@@ -47,7 +43,6 @@ public class UIStyle {
         b.setBorder(BorderFactory.createEmptyBorder(8,12,8,12));
     }
 
-    // TEXT FIELD
     public static void field(JTextField f){
         f.setBackground(MUTED);
         f.setForeground(Color.WHITE);
@@ -55,7 +50,6 @@ public class UIStyle {
         f.setBorder(BorderFactory.createEmptyBorder(6,8,6,8));
     }
 
-    // TEXT AREA
     public static void area(JTextArea a){
         a.setBackground(MUTED);
         a.setForeground(Color.WHITE);
@@ -63,13 +57,11 @@ public class UIStyle {
         a.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
     }
 
-    // COMBO BOX
     public static void combo(JComboBox<?> c){
         c.setBackground(MUTED);
         c.setForeground(Color.WHITE);
     }
 
-    // TABLE ✅ FIXED (NO MORE ERROR)
     public static void table(JTable t){
         t.setRowHeight(25);
         t.setFont(BODY);
